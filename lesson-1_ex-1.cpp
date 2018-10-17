@@ -16,8 +16,6 @@ Write an efficient algorithm for the following assumptions:
 N is an integer within the range [1..2,147,483,647].
 */
 
-// you can use includes, for example:
-// #include <algorithm>
 #include <iostream>
 #include <bitset>
 
@@ -25,32 +23,24 @@ N is an integer within the range [1..2,147,483,647].
 // cout << "this is a debug message" << endl;
 
 int solution(int N) {
+        
     // write your code in C++14 (g++ 6.2.0)
-    std::string binary = std::bitset<16>(N).to_string(); //to binary
-    int diff = 0; int f1 = 0; int f2 = 0; int f3 = 0;
+    std::string binary = std::bitset<64>(N).to_string(); //to binary
+    int diff = 0;
     bool zcount = false; int zeros = 0;
     for (int i =0; i < binary.size(); i++)
     {
         if (binary[i] == '1')
         {
-            if (binary[i+1] == '0')
-            {
-                zcount = true;
-                continue;
-            }
-            else
-                continue;        
+            zcount = true;
+            if (diff < zeros)
+                diff = zeros;
+            zeros = 0;
+            continue;
         }
         if ((binary[i] == '0') && (zcount == true))
         {
             zeros++;
-            if (binary[i+1] == '1')
-            {
-                zcount = false;
-                if (diff < zeros)
-                    diff = zeros;
-                    zeros = 0;
-            }
         }
     }                
     if (diff > 0)
