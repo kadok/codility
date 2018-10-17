@@ -28,25 +28,31 @@ int solution(int N) {
     // write your code in C++14 (g++ 6.2.0)
     std::string binary = std::bitset<16>(N).to_string(); //to binary
     int diff = 0; int f1 = 0; int f2 = 0; int f3 = 0;
+    bool zcount = false; int zeros = 0;
     for (int i =0; i < binary.size(); i++)
     {
         if (binary[i] == '1')
         {
             if (binary[i+1] == '0')
             {
-                for (int j =i+1; i < binary.size(); i++)
-                {
-                    if (binary[j] == "1")
-                    {
-                        i = j - 1;
-                        if (diff < (i+1) - j) 
-                            diff = (i+1) - j;
-                        break;
-                    }
-                }
+                zcount = true;
+                continue;
+            }
+            else
+                continue;        
+        }
+        if ((binary[i] == '0') && (zcount == true))
+        {
+            zeros++;
+            if (binary[i+1] == '1')
+            {
+                zcount = false;
+                if (diff < zeros)
+                    diff = zeros;
+                    zeros = 0;
             }
         }
-    }
+    }                
     if (diff > 0)
         return diff;
     else
