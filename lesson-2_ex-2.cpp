@@ -33,8 +33,8 @@ all but one of the values in A occur an even number of times.
 
 // you can use includes, for example:
 // you can use includes, for example:
+// you can use includes, for example:
 #include <algorithm>
-#include <map>
 
 using namespace std;
 
@@ -43,25 +43,10 @@ using namespace std;
 
 int solution(vector<int> &A) {
 
-    // Create a map to store the frequency of each element in vector
-    map<int, int> countMap;
-     
-    // Iterate over the vector and store the frequency of each element in map
-    for (auto & elem : A)
-    {
-    	auto result = countMap.insert(std::pair<int, int>(elem, 1));
-    	if (result.second == false)
-    		result.first->second++;
-    }
-
-    // Iterate over the map
-    for (auto & elem : countMap)
-    {
-    	// If frequency count is greater than 1 then its a duplicate element
-    	if (elem.second == 1)
-    	{
-    		//std::cout << elem.first << " :: " << elem.second << std::endl;
-    		return elem.first;
-    	}
-    }
+   int result = 0;
+   for (auto & number : A)
+   {
+     result ^= number;
+   } 
+   return result;
 }
