@@ -32,7 +32,9 @@ all but one of the values in A occur an even number of times.
 */
 
 // you can use includes, for example:
-// #include <algorithm>
+// you can use includes, for example:
+#include <algorithm>
+#include <map>
 
 using namespace std;
 
@@ -40,19 +42,26 @@ using namespace std;
 // cout << "this is a debug message" << endl;
 
 int solution(vector<int> &A) {
-    // write your code in C++14 (g++ 6.2.0)
-    bool unpaired = true;
-    for(int i = 0; i < A.size(); i++)
+
+    // Create a map to store the frequency of each element in vector
+    map<int, int> countMap;
+     
+    // Iterate over the vector and store the frequency of each element in map
+    for (auto & elem : A)
     {
-        for (int j = 0; j < A.size(); j++)
-        {
-            if ((A[i] == A[j]) && (i != j))
-            {
-                unpaired = false;
-                break;
-            }
-        }
-        if (unpaired)
-            return A[i];
+    	auto result = countMap.insert(std::pair<int, int>(elem, 1));
+    	if (result.second == false)
+    		result.first->second++;
+    }
+
+    // Iterate over the map
+    for (auto & elem : countMap)
+    {
+    	// If frequency count is greater than 1 then its a duplicate element
+    	if (elem.second == 1)
+    	{
+    		//std::cout << elem.first << " :: " << elem.second << std::endl;
+    		return elem.first;
+    	}
     }
 }
