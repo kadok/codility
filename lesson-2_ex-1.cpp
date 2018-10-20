@@ -38,25 +38,23 @@ In your solution, focus on correctness. The performance of your solution will no
 */
 
 // you can use includes, for example:
-// #include <algorithm>
+#include <algorithm>
 
 // you can write to stdout for debugging purposes, e.g.
 // cout << "this is a debug message" << endl;
-using namespace std;
 
 vector<int> solution(vector<int> &A, int K) {
     // write your code in C++14 (g++ 6.2.0)
-    for(int j = 0; j < K; j++)
+    if (A.empty())
+        return A;
+    
+    K = K % A.size();
+
+    if (A.size() == 0 || A.size() == 1 ||  K == 0)
+        return A;
+    else
     {
-        int last = A[A.size()-1];
-        vector<int> B;
-        B.push_back(A[0]);
-        for(int i = 0; i < A.size(); i++)
-        {
-            B.push_back(A[i+1]);   
-            A[i+1] = B[i];       
-        }
-        A[0] = last;
+        rotate(A.rbegin(), A.rbegin() + K, A.rend());
+        return A;
     }
-    return A;
 }
